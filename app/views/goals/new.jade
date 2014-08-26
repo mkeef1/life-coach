@@ -1,0 +1,17 @@
+extends ../shared/template
+block content
+  h2 New Goals
+  .row
+    .col-xs-6
+      form(role='form', method='post', action='/goals')
+       .form-group
+          label(for='name') Name
+          input.form-control#name(type='text', name='name', autofocus=true)
+        .form-group
+          label(for='due') Due
+          input.form-control#due(type='date', name='due')
+        .form-group
+          label(for='tags') Tags
+          input.form-control#tags(type='text', name='tags')
+        button.btn.btn-primary(type='submit') Add Goal
+block scripts

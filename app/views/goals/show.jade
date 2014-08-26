@@ -1,0 +1,26 @@
+extends ../shared/template
+block content
+  .row
+    .col-xs-6
+      h2= goal.name
+    .col-xs-6
+      h2 Add Task
+      form(role='form', method='post', action='/goals/#{goal._id}/tasks')
+        .form-group
+          label(for='name') Name
+          input.form-control#name(type='text', name='name', autofocus=true)
+        .form-grou
+          label(for='description') Description
+          input.form-control#descripton(name='description')
+        .form-group
+          label(for='difficulty') Difficulty
+          select.form-control#difficulty(name='difficulty')
+            option Easy
+            option Medium
+            option Hard
+        .form-group
+          label(for='rank') Rank
+          input.form-control#rank(type='number', name='rank')
+        button.btn.btn-primary(type='submit') Submit
+
+block scripts

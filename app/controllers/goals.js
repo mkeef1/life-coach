@@ -33,7 +33,7 @@ exports.addTask = function(req, res){
     if(!goal){res.redirect('/');}
     goal.addTask(req.body);
     goal.save(function(){
-      res.redirect('/goals' + req.params.goalId);
+      res.redirect('/goals/' + req.params.goalId);
     });
   });
 };

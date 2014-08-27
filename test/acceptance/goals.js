@@ -55,29 +55,26 @@ describe('goals', function(){
   });
 
   describe('post /goals', function(){
-    it('should create a new goal and redirect', function(done){
+    it('should create a new goal and redirect', function(){
       request(app)
       .post('/goals')
       .set('cookie', cookie)//attaches cookie to request
       .send('name=be+a+doctor&due=2014-08-27&tags=a%2C+b%2C+c%2C+d')//inspect element/network/form data
       .end(function(err, res){
         expect(res.status).to.equal(302);//get request
-        done();
       });
     });
   });
 
   describe('get /goals', function(){
-    it('should show all the goals', function(done){
+    it('should show all the goals', function(){
       request(app)
       .get('/goals')
       .set('cookie', cookie)//attaches cookie to request
-      .send('name=be+a+doctor&due=2014-08-27&tags=a%2C+b%2C+c%2C+d')//inspect element/network/form data
       .end(function(err, res){
         expect(res.status).to.equal(200);//get request
         expect(res.text).to.include('doctor');
         expect(res.text).to.include('marathon');
-        done();
       });
     });
   });
@@ -94,12 +91,25 @@ describe('goals', function(){
       });
     });
 
-    it('should show a specific goal page', function(done){
+    it('should redirect from goal page - access error', function(done){
       request(app)
       .get('/goals/a00000000000000000000003')
       .set('cookie', cookie)//attaches cookie to request
       .end(function(err, res){
         expect(res.status).to.equal(302);//get request
+        done();
+      });
+    });
+  });
+
+  describe('post /goals/3/tasks', function(){
+    it('should create a new task for a goal', function(done){
+      request(app)
+      .post('/goals/a00000000000000000000003/tasks')
+      .set('cookie', cookie)
+      .send('name=school&description=Go+to+school&difficulty=Medium&rank=1')
+      .end(function(err, res){
+        expect(res.status).to.equal(302);
         done();
       });
     });

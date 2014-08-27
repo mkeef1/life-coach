@@ -1,8 +1,29 @@
 extends ../shared/template
 block content
   .row
-    .col-xs-6
-      h2= goal.name
+    .col-xs-9
+      .row
+        .col-xs-12
+          h2= goal.name
+      .row
+        .col-xs-12
+          h2 Task List
+          table.table.table-striped.table-hover.table-bordered
+            thead
+              tr
+                th Name
+                th Description
+                th Difficulty
+                th Rank
+                th Complete?
+            tbody
+              each task in goal.tasks
+                tr
+                  td= task.name
+                  td= task.description
+                  td= task.difficulty
+                  td= task.rank
+                  td= task.isComplete
     .col-xs-6
       h2 Add Task
       form(role='form', method='post', action='/goals/#{goal._id}/tasks')
@@ -11,7 +32,7 @@ block content
           input.form-control#name(type='text', name='name', autofocus=true)
         .form-grou
           label(for='description') Description
-          input.form-control#descripton(name='description')
+          textarea.form-control#descripton(name='description')
         .form-group
           label(for='difficulty') Difficulty
           select.form-control#difficulty(name='difficulty')

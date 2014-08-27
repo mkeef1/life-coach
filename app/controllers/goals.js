@@ -19,12 +19,21 @@ exports.index = function(req, res){
 };
 
 exports.show = function(req, res){
-  console.log('<<<<<<<<< ' + typeof req.params.goalId + ' ' + typeof res.locals.user._id);
   Goal.findByGoalIdAndUserId(req.params.goalId, res.locals.user._id, function(err, goal){
     if(goal){
       res.render('goals/show', {goal:goal});
     }else{
       res.redirect('/');
     }
+  });
+};
+
+exports.addTask = function(req, res){
+  Goal.findByGoalIdAndUserId(req.params.goalId, res.locals.user._id, function(err, goal){
+    if(!goal){res.redirect('/');}
+    goal.addTask(req.body);
+    goal.save(function(){
+      res.redirect('/goals' + req.params.goalId);
+    });
   });
 };

@@ -10,9 +10,9 @@
 
     .collapse.navbar-collapse#bs-navbar-collapse
       ul.nav.navbar-nav.navbar-right
-        li: a(href='/goals/new') New Goal
-        li: a(href='/goals') Goals
         if user
+          li: a(href='/goals/new') New Goal
+          li: a(href='/goals') Goals
           li
             form.navbar-form(method='post', action='/logout')
               .form-group
@@ -21,6 +21,4 @@
         else
           li: a(href='/register') Register
           li: a(href='/login') Login
-          li: a(href='/goals/new') New Goal
-          li: a(href='/goals') Goals
 

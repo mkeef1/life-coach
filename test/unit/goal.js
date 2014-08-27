@@ -50,12 +50,39 @@ describe('Goal', function(){
     });
   });
 
-  describe('.findAllByUserId', function(){
+  describe('.findGoalIdAndUserId', function(){
     it('should find all a goal by its id', function(done){
       var userId = Mongo.ObjectID('000000000000000000000001'),
           goalId = 'a00000000000000000000001';
       Goal.findByGoalIdAndUserId(goalId, userId, function(err, goal){
         expect(goal).to.be.ok;
+        done();
+      });
+    });
+  });
+
+  describe('#save', function(){
+    it('should save a goal', function(done){
+      var userId = Mongo.ObjectID('000000000000000000000001'),
+          goalId = 'a00000000000000000000001';
+      Goal.findByGoalIdAndUserId(goalId, userId, function(err, goal){
+        goal.name = 'stuff';
+        goal.save(function(err, count){
+          expect(count).to.equal(1);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('#addTask', function(){
+    it('should add a task to a goal', function(done){
+      var userId = Mongo.ObjectID('000000000000000000000001'),
+          goalId = 'a00000000000000000000001';
+      Goal.findByGoalIdAndUserId(goalId, userId, function(err, goal){
+        goal.addTask({name:'a', difficulty:'b', description:'d', rank:'e'});
+        expect(goal.tasks[0].name).to.equal('a');
+        expect(goal.tasks[0].isComplete).to.be.false;
         done();
       });
     });

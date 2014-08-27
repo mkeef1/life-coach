@@ -50,7 +50,7 @@ describe('Goal', function(){
     });
   });
 
-  describe('.findGoalIdAndUserId', function(){
+  describe('.findByGoalIdAndUserId', function(){
     it('should find all a goal by its id', function(done){
       var userId = Mongo.ObjectID('000000000000000000000001'),
           goalId = 'a00000000000000000000001';

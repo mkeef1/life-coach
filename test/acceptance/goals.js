@@ -55,19 +55,20 @@ describe('goals', function(){
   });
 
   describe('post /goals', function(){
-    it('should create a new goal and redirect', function(){
+    it('should create a new goal and redirect', function(done){
       request(app)
       .post('/goals')
       .set('cookie', cookie)//attaches cookie to request
       .send('name=be+a+doctor&due=2014-08-27&tags=a%2C+b%2C+c%2C+d')//inspect element/network/form data
       .end(function(err, res){
         expect(res.status).to.equal(302);//get request
+        done();
       });
     });
   });
 
   describe('get /goals', function(){
-    it('should show all the goals', function(){
+    it('should show all the goals', function(done){
       request(app)
       .get('/goals')
       .set('cookie', cookie)//attaches cookie to request
@@ -75,6 +76,7 @@ describe('goals', function(){
         expect(res.status).to.equal(200);//get request
         expect(res.text).to.include('doctor');
         expect(res.text).to.include('marathon');
+        done();
       });
     });
   });
@@ -105,7 +107,7 @@ describe('goals', function(){
   describe('post /goals/3/tasks', function(){
     it('should create a new task for a goal', function(done){
       request(app)
-      .post('/goals/a00000000000000000000003/tasks')
+      .post('/goals/a00000000000000000000001/tasks')
       .set('cookie', cookie)
       .send('name=school&description=Go+to+school&difficulty=Medium&rank=1')
       .end(function(err, res){
